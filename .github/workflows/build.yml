@@ -38,6 +38,6 @@ jobs:
         run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
 
       - name: Publish image
-        run: docker push --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
+        run: docker push -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
 
 
