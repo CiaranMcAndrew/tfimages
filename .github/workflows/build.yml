@@ -32,7 +32,7 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
-          build-args: PROVIDERS=./plugin
+          build-args: PROVIDERS=./plugins
 
       # - name: Build image
       #   run: docker build --build-arg PROVIDERS=./plugins -t terraform-agent:latest . 
