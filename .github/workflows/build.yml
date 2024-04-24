@@ -26,15 +26,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
-          build-args: PROVIDERS="./plugins"
+      #-
+      #  name: Build and push
+      #  uses: docker/build-push-action@v5
+      #  with:
+      #    push: true
+      #    tags: ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
+      #    build-args: PROVIDERS="./plugins"
 
-      # - name: Build image
-      #   run: docker build --build-arg PROVIDERS=./plugins -t terraform-agent:latest . 
+      - name: Build image
+        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
+
+      - name: Publish image
+        run: docker push --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
 
 
