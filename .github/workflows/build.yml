@@ -13,3 +13,11 @@ jobs:
 
       - name: Run Terraform mirror 
         run: terraform providers mirror -platform=linux_amd64 ./plugins
+
+      - name: Confirm plugins
+        run: ls ./plugins
+
+      - name: Build image
+        run: docker build --build-arg PROVIDERS=./plugins -t terraform-agent:latest . 
+
+
