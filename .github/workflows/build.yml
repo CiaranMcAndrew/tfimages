@@ -13,12 +13,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - id: semver-tag
+        uses: gandarez/semver-action@master
+        with:
+          branching_model: "trunk-based"
+
+      - name: "Created tag"
+        run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+
       - name: Run Terraform mirror 
         run: terraform providers mirror -platform=linux_amd64 ./plugins
 
       - name: Confirm plugins
         run: ls -R ./plugins
-
 
       -
         name: Login to Docker Hub
@@ -26,18 +33,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      #-
-      #  name: Build and push
-      #  uses: docker/build-push-action@v5
-      #  with:
-      #    push: true
-      #    tags: ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
-      #    build-args: PROVIDERS="./plugins"
 
       - name: Build image
-        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest . 
+        run: docker build \
+          --build-arg PROVIDERS=./plugins \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:${{ steps.semver-tag.outputs.semver_tag }} \
+          . 
 
       - name: Publish image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
+        run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
 
 
