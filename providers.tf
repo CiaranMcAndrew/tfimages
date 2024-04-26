@@ -13,5 +13,9 @@ terraform {
         source  = "hashicorp/vsphere"
         version = "~> 2.4.0"
       }
+      local = {
+        source  = "hashicorp/local"
+        version = "~> 2.4.0"
+      }
     }
 }
