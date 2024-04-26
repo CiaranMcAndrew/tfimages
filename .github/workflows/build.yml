@@ -13,14 +13,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - id: semver-tag
-        uses: gandarez/semver-action@master
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
         with:
-          branching_model: "trunk-based"
-          main_branch_name: "main"
+          token: ${{ github.token }}
+          branch: main
+
 
       - name: "Created tag"
-        run: echo "tag ${{ steps.semver-tag.outputs.semver_tag }}"
+        run: echo "tag ${{ steps.semver.outputs.next }}"
 
       - name: Run Terraform mirror 
         run: terraform providers mirror -platform=linux_amd64 ./plugins
