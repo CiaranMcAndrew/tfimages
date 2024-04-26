@@ -38,13 +38,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image
-        run: docker build \
-          --build-arg PROVIDERS=./plugins \
-          -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest \
-          . 
-
-      - name: Tag image
-        run: docker tag ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:${{ steps.semver.outputs.next }}  
+        run: docker build --build-arg PROVIDERS=./plugins -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:${{ steps.semver.outputs.next }} .
 
       - name: Publish image
         run: docker push --all-tags ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest
