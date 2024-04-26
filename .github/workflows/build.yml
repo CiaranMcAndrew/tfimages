@@ -20,7 +20,6 @@ jobs:
           token: ${{ github.token }}
           branch: main
 
-
       - name: "Created tag"
         run: echo "tag ${{ steps.semver.outputs.next }}"
 
@@ -41,7 +40,7 @@ jobs:
         run: docker build \
           --build-arg PROVIDERS=./plugins \
           -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:latest \
-          -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:${{ steps.semver-tag.outputs.semver_tag }} \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/terraform-agent:${{ steps.semver.outputs.next }} \
           . 
 
       - name: Publish image
