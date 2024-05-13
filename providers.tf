@@ -13,6 +13,10 @@ terraform {
         source  = "hashicorp/vsphere"
         version = "~> 2.4.0"
       }
+      gitlab = {
+        source  = "gitlabhq/gitlab"
+        version = "~> 16.11.0"
+      }
       local = {
         source  = "hashicorp/local"
         version = "~> 2.4.0"
