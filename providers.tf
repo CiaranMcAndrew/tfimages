@@ -7,7 +7,7 @@ terraform {
       }
       ansible = {
         source  = "ansible/ansible"
-        version = "~> 1.0.0"
+        version = "~> 1.3.0"
       }
       vsphere = {
         source  = "hashicorp/vsphere"
