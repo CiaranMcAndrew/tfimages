@@ -11,7 +11,7 @@ terraform {
       }
       vsphere = {
         source  = "hashicorp/vsphere"
-        version = "~> 2.4.0"
+        version = "~> 2.8.0"
       }
       gitlab = {
         source  = "gitlabhq/gitlab"
