@@ -1,4 +1,4 @@
-FROM hashicorp/terraform:1.8.0
+FROM hashicorp/terraform:1.8.5
 
 # Add providers
 ENV PLUGIN_DIR=/opt/providers
