@@ -3,7 +3,11 @@ terraform {
     required_providers {
       random = {
         source  = "hashicorp/random"
-        version = "~>3.0"
+        version = "~> 3.0"
+      }
+      helm = {
+        source  = "hashicorp/helm"
+        version = "~> 2.15.0"
       }
       ansible = {
         source  = "ansible/ansible"
@@ -25,5 +29,6 @@ terraform {
         source  = "hashicorp/null"
         version = "~> 3.2.2"
       }
+      
     }
 }
